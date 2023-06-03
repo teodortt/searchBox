@@ -33,7 +33,7 @@ function App() {
         const response = await fetch(`https://itunes.apple.com/search?term=${query}`);
         const result = await response.json();
         const tracks = result.results.length > 0 &&
-          result.results.map(c => ({ name: c.trackName })).sort();
+          result.results.map(c => ({ id: c.trackId, name: c.trackName })).sort();
 
         setResults(initResults);
         setRelatedTracks(tracks);
@@ -51,7 +51,7 @@ function App() {
   useEffect(() => {
 
     const uniqueTracks = relatedTracks.length > 0 &&
-      relatedTracks.filter(obj => !results.some(({ name }) => obj.name === name));
+      relatedTracks.filter(obj => !results.some(({ id }) => obj.id === id));
 
     const interval = setInterval(() => {
       if (uniqueTracks.length > 0) {
@@ -76,8 +76,8 @@ function App() {
         value={query}
       />
       <div className="resultsContainer">
-        {results.length > 0 && results.map(el => (
-          <div key={el.name} className="result">
+        {results.length > 0 && results.map((el, i) => (
+          <div key={`${i} ${el.id}`} className="result">
             {el.name}
           </div>
         ))}
