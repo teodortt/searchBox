@@ -35,7 +35,6 @@ function App() {
         const tracks = result.results.length > 0 &&
           result.results.map(c => ({ id: c.trackId, name: c.trackName })).sort();
 
-        setResults(initResults);
         setRelatedTracks(tracks);
 
       } catch (error) {
@@ -44,6 +43,8 @@ function App() {
     }
     if (query) {
       fetchData();
+    } else {
+      setRelatedTracks([]);
     }
   }, [query])
 
