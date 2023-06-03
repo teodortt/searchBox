@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+  margin: 30px;
+}
+
+.searchBar {
+  padding: 10px;
+  outline: none;
+  border: 1px solid silver;
+  border-radius: 10px;
+  transition: 0.3s all;
+}
+
+.searchBar:hover {
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.75);
+}
+
+.resultsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+.result {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid silver;
+  width: 150px;
+  background: rgb(146, 220, 146);
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+.result:hover {
+  background: white;
+}
