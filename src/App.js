@@ -11,7 +11,7 @@ function App() {
     { name: 'E' }
   ];
 
-  const [relatedCountries, setRelatedCountries] = useState([]);
+  const [relatedTracks, setRelatedTracks] = useState([]);
   const [results, setResults] = useState(initResults);
   const [query, setQuery] = useState("");
 
@@ -30,13 +30,13 @@ function App() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://restcountries.com/v2/name/${query}`);
+        const response = await fetch(`https://itunes.apple.com/search?term=${query}`);
         const result = await response.json();
-        const countries = result.length > 0 &&
-          result.map(c => ({ name: c.name })).sort();
+        const tracks = result.results.length > 0 &&
+          result.results.map(c => ({ name: c.trackName })).sort();
 
         setResults(initResults);
-        setRelatedCountries(countries);
+        setRelatedTracks(tracks);
 
       } catch (error) {
         console.error(error)
@@ -50,20 +50,20 @@ function App() {
 
   useEffect(() => {
 
-    const uniqueCountries = relatedCountries.length > 0 &&
-      relatedCountries.filter(obj => !results.some(({ name }) => obj.name === name));
+    const uniqueTracks = relatedTracks.length > 0 &&
+      relatedTracks.filter(obj => !results.some(({ name }) => obj.name === name));
 
     const interval = setInterval(() => {
-      if (uniqueCountries.length > 0) {
+      if (uniqueTracks.length > 0) {
         results.shift();
-        setResults(results.concat(relatedCountries.shift()))
+        setResults(results.concat(relatedTracks.shift()))
 
       } else {
         setResults(results.concat(results.shift()))
       }
     }, 1000)
     return () => clearInterval(interval);
-  }, [relatedCountries, results])
+  }, [relatedTracks, results])
 
   return (
     <div className="App">
@@ -76,9 +76,9 @@ function App() {
         value={query}
       />
       <div className="resultsContainer">
-        {results.length > 0 && results.map(character => (
-          <div key={character.name} className="result">
-            {character.name}
+        {results.length > 0 && results.map(el => (
+          <div key={el.name} className="result">
+            {el.name}
           </div>
         ))}
       </div>
