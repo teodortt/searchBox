@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 function App() {
 
   const initResults = [
-    { name: 'A' },
-    { name: 'B' },
-    { name: 'C' },
-    { name: 'D' },
-    { name: 'E' }
+    { id: 'a1', name: 'A' },
+    { id: 'b2', name: 'B' },
+    { id: 'c3', name: 'C' },
+    { id: 'd5', name: 'D' },
+    { id: 'e6', name: 'E' }
   ];
 
   const [relatedTracks, setRelatedTracks] = useState([]);
